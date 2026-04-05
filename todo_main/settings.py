@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'todo',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +55,7 @@ ROOT_URLCONF = 'todo_main.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],#5 just add templates here
+        'DIRS': ['templates'],#5 just add templates here ,#6,7 at the end of home.html
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -29,15 +29,16 @@
 
         <div class="row">
             <h4>My Day</h4>
-            <p class="text-muted">3rd April 2026</p>
+            <p class="text-muted">3rd April 2026</p><!--current date dynamically-->
 
             <!-- Tasks -->
             <div class="col-md-7 col-lg-7" style="height: 450px; overflow: scroll;">
                 
                 <!-- Sample Task -->
+            {% for task in tasks %}<!--10-->
                 <div class="card m-1">
                     <div class="card-body">
-                        Sample Task 1
+                        {{task.task}} <!--10 next admin.py-->
                         <span style="position: relative; float: right;">
                             <button class="btn btn-success">
                                 <i class="fa fa-check"></i> Mark as Done
@@ -51,7 +52,7 @@
                         </span>
                     </div>
                 </div>
-
+            {% endfor %}<!--10-->
             </div>
 
             <!-- Completed Tasks -->
@@ -75,11 +76,12 @@
         <!-- Add Task Form (Frontend only, no backend action) -->
         <div class="row">
             <div class="col-md-6 col-lg-6 p-0" style="position: absolute; bottom: 50px;">
-                <form>
+                <form action="{% url 'addTask'%}" method="POST">
+                    {% csrf_token %}
                     <div class="form-group">
                         <span style="display: flex;">
-                            <input type="text" class="form-control" placeholder="Add a task">
-                            <button type="button" class="btn btn-primary" style="width: 200px;">
+                            <input type="text"  name="task" class="form-control" placeholder="Add a task">
+                            <button type="submit" class="btn btn-primary" style="width: 200px;">
                                 <i class="fa fa-plus"></i> Add
                             </button>
                         </span>
@@ -91,3 +93,9 @@
     </div>
 </body>
 </html>
+<!---
+#6 after creating the basic html template , stop the terminal and create app for to
+ #7 After creating the app register the app in the settings.py file
+ #now in to do app basically when we add task it by default marks it as not completed , so when we click marks as done then it is marked as completed 
+ #so for this logic the next step is to go to models.py under to do app and create models
+ ->
