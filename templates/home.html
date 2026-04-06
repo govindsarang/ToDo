@@ -1,4 +1,3 @@
-
 <!--
 # 4) before using this we have to go to settings and add this folder in the templates
 -->
@@ -17,87 +16,389 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        .form-control{
-            padding: 1.375rem .75rem !important;
+        /* ===== ROOT & RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5;
+            min-height: 100vh;
+        }
+
+        /* ===== PAGE WRAPPER ===== */
+        .page-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 30px 20px 120px 20px;
+        }
+
+        /* ===== HEADER ===== */
+        .app-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin-bottom: 28px;
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .app-header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .app-header h1 span {
+            font-weight: 300;
+        }
+
+        .app-header .date-text {
+            font-size: 0.9rem;
+            opacity: 0.85;
+            margin-top: 4px;
+        }
+
+        .header-icon {
+            font-size: 2.5rem;
+            opacity: 0.9;
+        }
+
+        /* ===== SECTION TITLES ===== */
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #4a4a6a;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title .badge-count {
+            background-color: #667eea;
+            color: #fff;
+            border-radius: 20px;
+            padding: 2px 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .section-title .badge-count.done {
+            background-color: #28c76f;
+        }
+
+        /* ===== TASK COLUMNS ===== */
+        .tasks-column {
+            height: 420px;
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+
+        /* Custom scrollbar */
+        .tasks-column::-webkit-scrollbar {
+            width: 5px;
+        }
+        .tasks-column::-webkit-scrollbar-track {
+            background: #e8eaf0;
+            border-radius: 10px;
+        }
+        .tasks-column::-webkit-scrollbar-thumb {
+            background: #b0b8d8;
+            border-radius: 10px;
+        }
+
+        /* ===== TASK CARD ===== */
+        .task-card {
+            background: #ffffff;
+            border: none;
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+            border-left: 4px solid #667eea;
+        }
+
+        .task-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-card.completed {
+            border-left-color: #28c76f;
+            background: #f6fff9;
+        }
+
+        .task-text {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #2d2d4e;
+            flex: 1;
+            margin-right: 12px;
+            word-break: break-word;
+        }
+
+        .task-card.completed .task-text {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        /* ===== ACTION BUTTONS ===== */
+        .task-actions {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .btn-action {
+            border: none;
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: background-color 0.2s ease, transform 0.15s ease;
+        }
+
+        .btn-action:hover {
+            transform: scale(1.05);
+            text-decoration: none;
+        }
+
+        .btn-done {
+            background-color: #28c76f;
+            color: #fff;
+        }
+        .btn-done:hover { background-color: #22ad60; color: #fff; }
+
+        .btn-undone {
+            background-color: #ff6b6b;
+            color: #fff;
+        }
+        .btn-undone:hover { background-color: #e85d5d; color: #fff; }
+
+        .btn-delete {
+            background-color: #ff4d4d;
+            color: #fff;
+        }
+        .btn-delete:hover { background-color: #e03a3a; color: #fff; }
+
+        .btn-edit {
+            background-color: #667eea;
+            color: #fff;
+        }
+        .btn-edit:hover { background-color: #5568d8; color: #fff; }
+
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #aaa;
+        }
+
+        .empty-state i {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .empty-state p {
+            font-size: 0.9rem;
+        }
+
+        /* ===== DIVIDER ===== */
+        .col-divider {
+            border-right: 1px solid #e0e4f0;
+        }
+
+        /* ===== ADD TASK BAR (bottom fixed) ===== */
+        .add-task-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            padding: 14px 20px;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+            z-index: 100;
+        }
+
+        .add-task-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+        }
+
+        .add-task-input {
+            flex: 1;
+            padding: 12px 18px;
+            border: 2px solid #d0d5ee;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-family: 'Poppins', sans-serif;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .add-task-input:focus {
+            border-color: #667eea;
+        }
+
+        .add-task-input::placeholder {
+            color: #b0b5c9;
+        }
+
+        .btn-add {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 28px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: opacity 0.2s ease, transform 0.15s ease;
+        }
+
+        .btn-add:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .col-divider {
+                border-right: none;
+                border-bottom: 1px solid #e0e4f0;
+                margin-bottom: 20px;
+                padding-bottom: 20px;
+            }
+            .tasks-column {
+                height: 280px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h3 class="pt-5 text-center">Django ToDo App</h3>
 
-        <div class="row">
-            <h4>My Day</h4>
-            <p class="text-muted">3rd April 2026</p><!--current date dynamically-->
+    <div class="page-wrapper">
 
-            <!-- Tasks -->
-            <div class="col-md-7 col-lg-7" style="height: 450px; overflow: scroll;">
-                
-                <!-- Sample Task -->
-            {% for task in tasks %}<!--10-->
-                <div class="card m-1">
-                    <div class="card-body">
-                        {{ task.task }} <!--10 next admin.py-->
-                        <span style="position: relative; float: right;">
-                            <a href="{% url 'mark_as_done' task.pk %}"
-                             class="btn btn-success">
-                            <i class="fa fa-check"></i> Mark as Done
+        <!-- ===== HEADER ===== -->
+        <div class="app-header d-flex justify-content-between align-items-center">
+            <div>
+                <h1><i class="fa fa-check-square-o"></i> My <span>ToDo</span> App</h1>
+                <p class="date-text"><i class="fa fa-calendar-o"></i> &nbsp;3rd April 2026</p>
+            </div>
+            <div class="header-icon">
+                <i class="fa fa-tasks"></i>
+            </div>
+        </div>
+
+        <!-- ===== TASK COLUMNS ===== -->
+        <div class="row g-4">
+
+            <!-- Pending Tasks -->
+            <div class="col-md-7 col-divider">
+                <div class="section-title">
+                    <i class="fa fa-list-ul"></i> Pending Tasks
+                    <span class="badge-count">{{ tasks|length }}</span>
+                </div>
+
+                <div class="tasks-column">
+                    {% for task in tasks %}<!--10-->
+                    <div class="task-card">
+                        <span class="task-text">{{ task.task }}</span><!--10 next admin.py-->
+                        <div class="task-actions">
+                            <a href="{% url 'mark_as_done' task.pk %}" class="btn-action btn-done">
+                                <i class="fa fa-check"></i> Done
                             </a>
-                            <a href="{% url 'delete_task' task.id %}" class="btn btn-danger">
-                                <i class="fa fa-trash"></i>
-                            </a>
-                            <a href="{% url 'edit_task' task.id %}" class="btn btn-primary">
+                            <a href="{% url 'edit_task' task.id %}" class="btn-action btn-edit">
                                 <i class="fa fa-pencil"></i>
                             </a>
-                        </span>
+                            <a href="{% url 'delete_task' task.id %}" class="btn-action btn-delete">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </div>
                     </div>
+                    {% empty %}
+                    <div class="empty-state">
+                        <i class="fa fa-smile-o"></i>
+                        <p>No pending tasks! Great job 🎉</p>
+                    </div>
+                    {% endfor %}<!--10-->
                 </div>
-            {% endfor %}<!--10-->
             </div>
 
             <!-- Completed Tasks -->
-            <div class="col-md-5 col-lg-5">
-                <h5>Completed Tasks</h5>
-                {% for task in completed_tasks %}
-                <div class="card m-1">
-                    <div class="card-body">
-                        {{ task.task }}
-                         <span style="position: relative; float: right;">
-                            <a href="{% url 'mark_as_undone' task.pk %}"
-                             class="btn btn-danger">
-                            <i class="fa fa-times"></i> Mark as Undone
-                            </a>
-                        </span>
-                    </div>
+            <div class="col-md-5">
+                <div class="section-title">
+                    <i class="fa fa-check-circle"></i> Completed
+                    <span class="badge-count done">{{ completed_tasks|length }}</span>
                 </div>
-                {% endfor %}
-            </div>
-        </div>
 
-        <!-- Add Task Form (Frontend only, no backend action) -->
-        <div class="row">
-            <div class="col-md-6 col-lg-6 p-0" style="position: absolute; bottom: 50px;">
-                <form action="{% url 'addTask'%}" method="POST">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <span style="display: flex;">
-                            <input type="text"  name="task" class="form-control" placeholder="Add a task">
-                            <button type="submit" class="btn btn-primary" style="width: 200px;">
-                                <i class="fa fa-plus"></i> Add
-                            </button>
-                        </span>
+                <div class="tasks-column">
+                    {% for task in completed_tasks %}
+                    <div class="task-card completed">
+                        <span class="task-text">{{ task.task }}</span>
+                        <div class="task-actions">
+                            <a href="{% url 'mark_as_undone' task.pk %}" class="btn-action btn-undone">
+                                <i class="fa fa-times"></i> Undo
+                            </a>
+                        </div>
                     </div>
-                </form>
+                    {% empty %}
+                    <div class="empty-state">
+                        <i class="fa fa-clock-o"></i>
+                        <p>No completed tasks yet.</p>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
 
+        </div>
     </div>
+
+    <!-- ===== FIXED ADD TASK BAR ===== -->
+    <div class="add-task-bar">
+        <form action="{% url 'addTask'%}" method="POST">
+            {% csrf_token %}
+            <div class="add-task-inner">
+                <input type="text" name="task" class="add-task-input" placeholder="✏️  Write a new task and press Add...">
+                <button type="submit" class="btn-add">
+                    <i class="fa fa-plus"></i> Add Task
+                </button>
+            </div>
+        </form>
+    </div>
+
 </body>
 </html>
-<!---
-#6 after creating the basic html template , stop the terminal and create app for to
+<!--
+ #6 after creating the basic html template , stop the terminal and create app for to
  #7 After creating the app register the app in the settings.py file
  #now in to do app basically when we add task it by default marks it as not completed , so when we click marks as done then it is marked as completed 
  #so for this logic the next step is to go to models.py under to do app and create models
  ->
+-->
