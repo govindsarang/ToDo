@@ -1,4 +1,4 @@
-# ✅ Django ToDo App
+#  Django ToDo App
 
 A simple and clean **Task Manager** web application built with **Django** (backend) and styled with **custom CSS + Bootstrap 5** (frontend).
 
@@ -17,7 +17,7 @@ Tasks are stored in a **SQLite database** via Django's ORM.
 
 ---
 
-## 🗂️ Project Structure
+##  Project Structure
 
 ```
 ToDo/
@@ -78,7 +78,7 @@ ToDo/
 
 ---
 
-## 🚀 How to Run Locally
+##  How to Run Locally
 
 ```bash
 # 1. Clone the repository
